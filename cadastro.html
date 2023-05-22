@@ -77,18 +77,6 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">
-                                <i class="fas fa-user"></i> Log In
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-user"></i> Sign Up
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </nav>
@@ -101,7 +89,8 @@
             <div class="col-md-6 d-flex flex-column " style=" padding: 4%;">
                 <div>
                     <h2 style="font-family: 'Codec Pro', sans-serif; font-weight: 800; font-size: 45px; margin-bottom:5% ;">Cadastro</h2>
-                    <form onsubmit="return validateForm()">
+                    <!-- <form onsubmit="return validateForm() && cadastraUsuario()"> -->
+                    <form id="form-cadastro">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="name" placeholder="Seu nome" required>
@@ -128,7 +117,7 @@
                             <span id="password-match" style="display: none; color: red;">As senhas não coincidem.</span>
                         </div>
                       
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button id="btn-login" type="submit" class="btn btn-primary">Cadastrar</button>
                     </form>
                     
                     <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
@@ -143,8 +132,21 @@
     <!-- Restante do código -->
 
     <script src="script.js"></script>
+    <script src="variables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     
     <script>
+        $("#form-cadastro").submit(async function(e) {
+            e.preventDefault();
+            if (!validateForm()) return;
+
+            const previousSubmitHTML = $('#btn-login').html();
+            $('#btn-login').html("<i class='fas fa-spinner fa-spin'></i> Validando...");
+            await cadastraUsuario();
+            $('#btn-login').html(previousSubmitHTML);
+        });
+
         function checkPasswordMatch() {
             var password = document.getElementById("password").value;
             var confirmPassword = document.getElementById("confirm-password").value;
@@ -168,11 +170,35 @@
             
             return true;
         }
+
+
+        async function cadastraUsuario() {
+            const data = {
+                nome: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                senha: document.getElementById("password").value,
+                telefone: document.getElementById("phone").value,
+            };
+
+            try {
+                const response = await fetch(apiURL + "/usuario", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                alert('Usuário criado. Agora prossiga com o login');
+
+                window.location.href = 'login.html';
+            } catch (e) {
+                console.log(e);
+                alert('Um erro ocorreu. Verifique as informações e tente novamente');
+            }
+        }
     </script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#phone').mask('(00) 00000-0000');

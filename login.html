@@ -76,18 +76,6 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">
-                                <i class="fas fa-user"></i> Log In
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-user"></i> Sign Up
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </nav>
@@ -99,7 +87,7 @@
             <div class="col-md-6 d-flex flex-column " style=" padding: 4%;">
                 <div >
                     <h2 style="font-family: 'Codec Pro', sans-serif; font-weight: 800; font-size: 45px; margin-bottom:5%;">Login</h2>
-                    <form>
+                    <form id="form-login">
                         <div class="mb-3">
                             <label for="email" class="form-label text-left">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Seu email">
@@ -109,7 +97,7 @@
                             <input type="password" class="form-control" id="password" placeholder="Sua senha">
                         </div>
                        
-                        <button type="submit" class="btn btn-primary">Acessar</button>
+                        <button id="btn-login" type="submit" class="btn btn-primary">Acessar</button>
                     
                     </form>
                     <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
@@ -123,6 +111,52 @@
     
     
     <script src="script.js"></script>
+    <script src="variables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <script>
+        $("#form-login").submit(async function(e) {
+            e.preventDefault();
+            const previousSubmitHTML = $('#btn-login').html();
+            $('#btn-login').html("<i class='fas fa-spinner fa-spin'></i> Validando...");
+            await login();
+            $('#btn-login').html(previousSubmitHTML);
+        });
+
+        async function login() {
+            const data = {
+                acesso: document.getElementById("email").value,
+                senha: document.getElementById("password").value,
+            };
+
+            try {
+                const response = await fetch(apiURL + "/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.status == 401) {
+                    alert('Dados de acesso inválidos');
+                    return;
+                }
+
+                const responseData = await response.json();
+                console.log(responseData);
+                localStorage.userData = JSON.stringify(responseData);
+
+                alert('Login realizado com sucesso.');
+
+                window.location.href = 'index.html';
+            } catch (e) {
+                console.log(e);
+                alert('Um erro ocorreu. Verifique as informações e tente novamente');
+            }
+        }
+    </script>
 
 </body>
 
