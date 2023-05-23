@@ -105,8 +105,8 @@
                 <h2>Cadastre o equipamento </h2>
                 <form action="/processar_doacao" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="tipo" class="form-label">Tipo:</label>
-                        <input type="text" class="form-control" id="tipo" name="tipo" required>
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                     <div class="mb-3">
                         <label for="modelo" class="form-label">Modelo:</label>
@@ -135,7 +135,7 @@
         </div>
     </section>
 
-    <script>
+   <!--- <script>
         function redirecionarAcompanharDoacoes() {
             var tipo = document.getElementById("tipo").value;
             var modelo = document.getElementById("modelo").value;
@@ -154,7 +154,50 @@
                 alert("Por favor, preencha todos os campos obrigatórios e adicione pelo menos uma imagem ou vídeo.");
             }
         }
+    </script>-->
+
+    <script>
+        async function redirecionarAcompanharDoacoes() {
+            var nome = document.getElementById("nome").value;
+            var modelo = document.getElementById("modelo").value;
+            var tempoUso = document.getElementById("tempo_uso").value;
+            var fotos = document.getElementById("fotos").files;
+            var videos = document.getElementById("videos").files;
+            const user = JSON.parse(localStorage.userData || '{}');
+            const token = jQuery.isEmptyObject(user) ? user.token : null;
+    
+            if (nome !== "" && modelo !== "" && tempoUso !== "" && (fotos.length > 0 && videos.length > 0)) {
+               try {
+                    const response = await fetch(apiURL + "/common/criarEquipamento", {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify({ nome: nome, modelo: modelo, tempoUso: tempoUso, fotos: fotos, videos: videos })
+                    });
+    
+                    if (response.ok) {
+                        const data = await response.json();
+                        var mensagem = "Equipamento cadastrado com sucesso. ID do equipamento: " + data.id;
+                        if (confirm(mensagem)) {
+                            window.location.href = "acompanhar-doacoes.html";
+                        }
+                    } else {
+                        throw new Error("Erro ao salvar o formulário");
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                    alert("Ocorreu um erro ao salvar o formulário. Por favor, tente novamente.");
+                }
+            } else {
+                alert("Por favor, preencha todos os campos obrigatórios e adicione pelo menos uma imagem ou vídeo.");
+            }
+        }
     </script>
+    <script scr="variales.js"></script>
+    
+    
 </body>
 
 <footer>
