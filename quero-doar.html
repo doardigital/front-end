@@ -221,11 +221,7 @@
     
                     if (response.status == 201) {
                         alert("Equipamento cadastrado com sucesso.");
-
-                        // Adicionar a nova tela criada
-                        // window.location.href = "acompanhar-doacoes.html";
-
-                        // A rota "/common/equipamentosDoados" está disponível para buscar os equipamentos doados
+                        window.location.href = "minhas_doacoes.html";
                     } else {
                         throw new Error("Erro ao salvar o formulário");
                     }
