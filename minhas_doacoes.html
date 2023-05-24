@@ -18,40 +18,77 @@
  
     
     <style>
-       
         .form-control {
             background-color: transparent;
             border: 1px solid white;
             color: white;
             border-radius: 20px;
         }
-
+    
         .btn-primary {
             background-color:#8a5bcc;
             color: black;
             border: none;
             border-radius: 20px;
             width: 100%;
-            margin-top: 5% ;
+            margin-top: 5%;
             margin-bottom: 5%;
         }
-
-        h2 , th {
+    
+        h2{
             color: white;
+            text-align: center;
+        }
+         th, td {
+            color: black;
             text-align: center;
         }
         .form-label {
             text-align: left;
             color: white;
         }
-        a{
+    
+        a {
             color: #8a5bcc;
         }
+    
         .form-control[type="file"]::-webkit-file-upload-button {
-        background-color: rgba(255, 255, 255, 0.2); /* Defina a opacidade desejada */
-        color: white; /* Defina a cor do texto */
-    }
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Defina a opacidade desejada */
+            color: white;
+            /* Defina a cor do texto */
+        }
+    
+        
+    
+        table {
+           
+            background-color:#bb9afe;
+            border-spacing: 10px;
+            border-collapse: collapse; /* Adicione esta linha */
+}
+        
+    
+       
+        .purple-row th {
+  
+    color: black;
+    border-spacing: 10px!important;
+    border: 10px solid #13142b; /* Adicione esta linha */
 
+}
+
+.purple-row td {
+    background-color:#deceff;
+    color: black;
+    border-spacing: 10px!important;
+    border: 10px solid #13142b; /* Adicione esta linha */
+}
+.no-border-bottom {
+    border-bottom: none !important;
+}
+
+    
     </style>
 </head>
 
@@ -60,10 +97,12 @@
 
         <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">Logo</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <img src="./imagens/logo1.png" alt="logo" class="logo">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -112,22 +151,24 @@
         </nav>
     </header>
 
-    <section class="container" >
+    <section class="container">
         <div style="padding: 5%;">
-        <h2 style="padding-bottom:5% ;">Equipamentos Cadastrados</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="equipamentos-lista">
-                <!-- A lista de equipamentos será gerada dinamicamente aqui -->
-            </tbody>
-        </table>
-    </div>
+            <h2 style="padding-bottom:5%;">Equipamentos Cadastrados</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="purple-row">
+                        <th class="no-border-bottom">ID</th>
+        <th class="no-border-bottom">Nome</th>
+        <th class="no-border-bottom">Modelo</th>
+        <th class="no-border-bottom">Status</th>
+    
+                    </tr>
+                </thead>
+                <tbody id="equipamentos-lista">
+                    <!-- A lista de equipamentos será gerada dinamicamente aqui -->
+                </tbody>
+            </table>
+        </div>
     </section>
  
 
@@ -182,16 +223,19 @@
         }
 
         function exibirEquipamentos(equipamentos) {
-            const tabela = document.getElementById('equipamentos-lista');
-            equipamentos.forEach(function(equipamento) {
-                const row = tabela.insertRow();
-                row.innerHTML = `
-                    <td>${equipamento.id}</td>
-                    <td>${equipamento.nome}</td>
-                    <td>Em análise</td>
-                `;
-            });
-        }
+    const tabela = document.getElementById('equipamentos-lista');
+    equipamentos.forEach(function(equipamento) {
+        const row = tabela.insertRow();
+        row.className = "purple-row"; // Adicione esta linha
+        row.innerHTML = `
+            <td>${equipamento.id}</td>
+            <td>${equipamento.nome}</td>
+            <td>${equipamento.modelo}</td>
+            <td>Em análise</td>
+        `;
+    });
+}
+
     </script>
 </body>
 

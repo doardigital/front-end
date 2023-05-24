@@ -21,7 +21,7 @@ body {
   }
   
   .degrad-btn {
-    background-image: linear-gradient(to right, #5e23be, #81198a);
+    background-image: linear-gradient(to right, #856baf, #81198a);
     color: #13142b;
     border: none;
     border-radius: 20px;
@@ -39,6 +39,8 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
   }
+
+ 
   
 
 
