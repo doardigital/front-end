@@ -2,196 +2,387 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Codec+Pro:wght@800&display=swap">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <title>Doar Digital</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Codec+Pro:wght@800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Doar Digital</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    h2 {
+      color: white;
+      text-align: center;
+    }
+
+    th,
+    td {
+      color: black;
+      text-align: center;
+    }
+
+    table {
+
+      background-color: #bb9afe;
+      border-spacing: 10px;
+      border-collapse: collapse;
+      /* Adicione esta linha */
+    }
+
+    .purple-row th {
+
+      color: black;
+      border-spacing: 10px !important;
+      border: 10px solid #13142b;
+      /* Adicione esta linha */
+
+    }
+
+    .purple-row td {
+      background-color: #deceff;
+      color: black;
+      border-spacing: 10px !important;
+      border: 10px solid #13142b;
+      /* Adicione esta linha */
+    }
+
+    .no-border-bottom {
+      border-bottom: none !important;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark">
-            <div class="container">
-                <img src="./imagens/logo1.png" alt="logo" class="logo">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-home"></i> Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="quero-doar.html">
-                                <i class="fas fa-gift"></i> Quero doar
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="minhas_doacoes.html">
-                                <i class="fas fa-heart"></i> Minhas doações
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <!-- Elementos visiveis para usuarios NÃO autenticados -->
-                        <li id="login-action" class="nav-item menu-unauthenticated">
-                            <a class="nav-link" href="login.html">
-                                <i class="fas fa-user"></i> Log In
-                            </a>
-                        </li>
-                        <li id="signup-action" class="nav-item menu-unauthenticated">
-                            <a class="nav-link" href="cadastro.html">
-                                <i class="fas fa-user"></i> Sign Up
-                            </a>
-                        </li>
+  <header>
 
-                        <!-- Elementos visiveis para usuarios autenticados -->
-                        <li id="profile-action" class="nav-item menu-authenticated">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-user"></i> [Nome]
-                            </a>
-                        </li>
-                        <li id="logout-action" class="nav-item menu-authenticated">
-                            <a class="nav-link" href="#">
-                                Log out
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <nav class="navbar navbar-expand-md navbar-dark">
+      <div class="container">
+        <img src="./imagens/logo1.png" alt="logo" class="logo">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-home"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="quero-doar.html">
+                <i class="fas fa-gift"></i> Quero doar
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="minhas_doacoes.html">
+                <i class="fas fa-heart"></i> Minhas doações
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <!-- Elementos visíveis para usuários NÃO autenticados -->
+            <li id="login-action" class="nav-item menu-unauthenticated">
+              <a class="nav-link" href="login.html">
+                <i class="fas fa-user"></i> Log In
+              </a>
+            </li>
+            <li id="signup-action" class="nav-item menu-unauthenticated">
+              <a class="nav-link" href="cadastro.html">
+                <i class="fas fa-user"></i> Sign Up
+              </a>
+            </li>
 
-    <section class="container">
-        <div class="row" style="margin: 5%; margin-top:10% ; margin-bottom: 12%;">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome do equipamento</th>
-                            <th scope="col">Foto/Vídeo</th>
-                            <th scope="col">Ateração do Status</th>
-                            <th scope="col">Status Atual</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Monitor Dell</td>
-                            <td>
-                                <button type="button" class="btn btn-light">Visualizar</button>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Alterar Status
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="#">Aprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Reprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Em análise</a></li>
-                                      <li><a class="dropdown-item" href="#">Finalizado</a></li>
-                                      <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
-                                    </ul>
-                                  </div>
-                            </td>
-                            <td>Em análise</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Celular</td>
-                            <td>
-                                <button type="button" class="btn btn-light">Visualizar</button>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Alterar Status
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="#">Aprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Reprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Em análise</a></li>
-                                      <li><a class="dropdown-item" href="#">Finalizado</a></li>
-                                      <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
-                                    </ul>
-                                  </div>
-                            </td>
-                            <td>Em análise</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Notebook Lenovo</td>
-                            <td>
-                                <button type="button" class="btn btn-light">Visualizar</button>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Alterar Status
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="#">Aprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Reprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Em análise</a></li>
-                                      <li><a class="dropdown-item" href="#">Finalizado</a></li>
-                                      <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
-                                    </ul>
-                                  </div>
-                            </td>
-                            <td>Em análise</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>Celular</td>
-                            <td>
-                                <button type="button" class="btn btn-light">Visualizar</button>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Alterar Status
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="#">Aprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Reprovado</a></li>
-                                      <li><a class="dropdown-item" href="#">Em análise</a></li>
-                                      <li><a class="dropdown-item" href="#">Finalizado</a></li>
-                                      <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
-                                    </ul>
-                                  </div>
-                            </td>
-                            <td>Em análise</td>
-                          </tr>
-                        </tbody>
-                      </table>
+            <!-- Elementos visíveis para usuários autenticados -->
+            <li id="profile-action" class="nav-item menu-authenticated">
+              <a class="nav-link" href="#">
+                <i class="fas fa-user"></i> [Nome]
+              </a>
+            </li>
+            <li id="logout-action" class="nav-item menu-authenticated">
+              <a class="nav-link" href="#">
+                Log out
+              </a>
+            </li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </nav>
+  </header>
 
-    <script src="script.js"></script>
-    <script src="variables.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
-    <script>
+  <!---  <section class="container">
+      <div class="row" style="margin: 5%; margin-top:10% ; margin-bottom: 12%;">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome do equipamento</th>
+                  <th scope="col">Foto/Vídeo</th>
+                  <th scope="col">Ateração do Status</th>
+                  <th scope="col">Status Atual</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Monitor Dell</td>
+                  <td>
+                      <button type="button" class="btn btn-light">Visualizar</button>
+                  </td>
+                  <td>
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Alterar Status
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Aprovado</a></li>
+                            <li><a class="dropdown-item" href="#">Reprovado</a></li>
+                            <li><a class="dropdown-item" href="#">Em análise</a></li>
+                            <li><a class="dropdown-item" href="#">Finalizado</a></li>
+                            <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
+                          </ul>
+                        </div>
+                  </td>
+                  <td class="status-atual">Em análise</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Celular</td>
+                  <td>
+                      <button type="button" class="btn btn-light">Visualizar</button>
+                  </td>
+                  <td>
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Alterar Status
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="#">Aprovado</a></li>
+                            <li><a class="dropdown-item" href="#">Reprovado</a></li>
+                            <li><a class="dropdown-item" href="#">Em análise</a></li>
+                            <li><a class="dropdown-item" href="#">Finalizado</a></li>
+                            <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
+                          </ul>
+                        </div>
+                  </td>
+                  <td class="status-atual">Em análise</td>
+                </tr>
+           
+              </tbody>
+          </table>
+      </div>
+  </section>-->
 
-    </script>
+  <section class="container">
+    <div class="row" style="margin: 5%; margin-top:10% ; margin-bottom: 12%;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome do equipamento</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Ateração do Status</th>
+            <th scope="col">Status Atual</th>
+            <th scope="col">Foto/Vídeo</th>
+          </tr>
+        </thead>
+        <tbody id="equipamentos-lista">
+          <!-- Aqui serão inseridas as linhas dos equipamentos -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <script src="script.js"></script>
+  <script src="variables.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      // Evento de clique nos itens do dropdown
+      $(".dropdown-menu a").click(function () {
+        // Obtém o novo status selecionado
+        var novoStatus = $(this).text();
+
+        // Atualiza o texto do status atual na mesma linha da opção selecionada
+        $(this).closest("tr").find(".status-atual").text(novoStatus);
+      });
+    });
+  </script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+   $(document).ready(function() {
+  user = JSON.parse(localStorage.userData || '{}');
+  console.log(user);
+  if (jQuery.isEmptyObject(user)) {
+    $('.menu-unauthenticated').show();
+    $('.menu-authenticated').hide();
+  } else {
+    $('.menu-unauthenticated').hide();
+    $('.menu-authenticated').show();
+
+    const actionContent = $('#profile-action a').html();
+    $('#profile-action a').html(actionContent.replace('[Nome]', user.nome));
+
+    // Chamar função para buscar e exibir a lista de equipamentos
+    buscarEquipamentos();
+  }
+});
+
+$('#logout-action').click(function() {
+  localStorage.clear();
+  location.reload();
+});
+
+async function buscarEquipamentos() {
+  const user = JSON.parse(localStorage.userData || '{}');
+  const token = user.token || '';
+
+  try {
+    const response = await fetch(apiURL + "/admin/equipamento", {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
+    });
+
+    if (response.status == 200) {
+      const equipamentos = await response.json();
+      exibirEquipamentos(equipamentos);
+    } else {
+      throw new Error("Erro ao buscar os equipamentos");
+    }
+  } catch (error) {
+    console.error('Erro:', error);
+    alert("Ocorreu um erro ao buscar os equipamentos. Por favor, tente novamente.");
+  }
+}
+
+function exibirEquipamentos(equipamentos) {
+  const tabela = document.getElementById('equipamentos-lista');
+  equipamentos.forEach(function(equipamento) {
+    const row = tabela.insertRow();
+    row.className = "purple-row"; // Adicione esta linha
+    row.innerHTML = `
+      <td>${equipamento.id}</td>
+      <td>${equipamento.nome}</td>
+      <td>${equipamento.modelo}</td>
+      <td>${equipamento.status}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton${equipamento.id}" data-bs-toggle="dropdown" aria-expanded="false" data-equipamento-id="${equipamento.id}">
+            Alterar Status
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${equipamento.id}">
+            <li><a class="dropdown-item" href="#">Aprovado</a></li>
+            <li><a class="dropdown-item" href="#">Reprovado</a></li>
+            <li><a class="dropdown-item" href="#">Em análise</a></li>
+            <li><a class="dropdown-item" href="#">Finalizado</a></li>
+            <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
+          </ul>
+        </div>
+      </td>
+      <td>
+        <button type="button" class="btn btn-light">Visualizar</button>
+      </td>
+    `;
+  });
+}
+
+$(document).on("click", ".dropdown-menu a", function() {
+  var novoStatus = $(this).text();
+  var equipamentoID = $(this).data("equipamento-id");
+
+  obterEquipamentoPorID(equipamentoID)
+    .then(function(equipamento) {
+      equipamento.status = novoStatus;
+      atualizarEquipamento(equipamento);
+    })
+    .catch(function(error) {
+      console.error('Erro:', error);
+      alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
+    });
+
+  $(this).closest("tr").find("td:nth-child(4)").text(novoStatus);
+});
+
+function obterEquipamentoPorID(id) {
+  const user = JSON.parse(localStorage.userData || '{}');
+  const token = user.token || '';
+
+  return new Promise(function(resolve, reject) {
+    fetch(apiURL + "/admin/equipamento/" + id, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
+    })
+      .then(function(response) {
+        if (response.status == 200) {
+          return response.json();
+        } else {
+          throw new Error("Erro ao obter o equipamento. Status: " + response.status);
+        }
+      })
+      .then(function(equipamento) {
+        resolve(equipamento);
+      })
+      .catch(function(error) {
+        console.error('Erro:', error);
+        alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
+      });
+  });
+}
+
+
+function atualizarEquipamento(equipamento) {
+  const user = JSON.parse(localStorage.userData || '{}');
+  const token = user.token || '';
+
+  fetch(apiURL + "/admin/equipamento/" + equipamento.id, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify(equipamento)
+  })
+    .then(function(response) {
+      if (response.status != 200) {
+        throw new Error("Erro ao atualizar o equipamento");
+      }
+    })
+    .catch(function(error) {
+      console.error('Erro:', error);
+      alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
+    });
+}
+
+
+</script>
+
+
+
 
 </body>
 
 <footer>
-    <p> </p>
+  <p> </p>
 </footer>
 
 </html>
