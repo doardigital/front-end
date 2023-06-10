@@ -7,6 +7,8 @@ body {
     font-weight: 700;
   }
 
+  
+
 
   label{
     color: white;
@@ -20,6 +22,14 @@ body {
     color: white;
   }
   
+
+  .justify-text {
+    text-align: justify;
+}
+.justify-text {
+  text-align: justify;
+  text-align-last: justify;
+}
   .degrad-btn {
     background-image: linear-gradient(to right, #856baf, #81198a);
     color: #13142b;
@@ -94,4 +104,41 @@ body {
 
 .logo{
   width: 190px;
+}
+
+
+
+/*tela quero doar*/
+
+.form-control {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 20px;
+}
+
+.btn-primary {
+  background-color:#8a5bcc;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+  margin-top: 5% ;
+  margin-bottom: 5%;
+}
+
+h2 {
+  color: white;
+  text-align: center;
+}
+.form-label {
+  text-align: left;
+  color: white;
+}
+a{
+  color: #8a5bcc;
+}
+.form-control[type="file"]::-webkit-file-upload-button {
+background-color: rgba(255, 255, 255, 0.2); /* Defina a opacidade desejada */
+color: white; /* Defina a cor do texto */
 }
