@@ -223,6 +223,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     
+    const statusDescricaoValor = {
+      P: 'Pendente',
+      A: 'Aprovado',
+      R: 'Reprovado',
+      E: 'Em análise',
+      F: 'Finalizado',
+      D: 'Aguardando Entrega',
+    };
+
     $(document).ready(function () {
       user = JSON.parse(localStorage.userData || '{}');
       console.log(user);
@@ -280,18 +289,19 @@
           <td>${equipamento.id}</td>
           <td>${equipamento.nome}</td>
           <td>${equipamento.modelo}</td>
-          <td>${equipamento.status}</td>
+          <td>${statusDescricaoValor[equipamento.statusDoacao]}</td>
           <td>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton${equipamento.id}" data-bs-toggle="dropdown" aria-expanded="false" data-equipamento-id="${equipamento.id}">
                 Alterar Status
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton${equipamento.id}">
-                <li><a class="dropdown-item" href="#">Aprovado</a></li>
-                <li><a class="dropdown-item" href="#">Reprovado</a></li>
-                <li><a class="dropdown-item" href="#">Em análise</a></li>
-                <li><a class="dropdown-item" href="#">Finalizado</a></li>
-                <li><a class="dropdown-item" href="#">Aguardando Entrega</a></li>
+                <li><a class="dropdown-item" value="P" href="#">Pendente</a></li>
+                <li><a class="dropdown-item" value="A" href="#">Aprovado</a></li>
+                <li><a class="dropdown-item" value="R" href="#">Reprovado</a></li>
+                <li><a class="dropdown-item" value="E" href="#">Em análise</a></li>
+                <li><a class="dropdown-item" value="F" href="#">Finalizado</a></li>
+                <li><a class="dropdown-item" value="D" href="#">Aguardando Entrega</a></li>
               </ul>
             </div>
           </td>
@@ -311,21 +321,37 @@
     }
 
     $(document).on("click", ".dropdown-menu a", function () {
-      var novoStatus = $(this).text();
+      var novoStatus = $(this).attr('value');
       var equipamentoID = $(this).data("equipamento-id");
 
-      obterEquipamentoPorID(equipamentoID)
-        .then(function (equipamento) {
-          equipamento.status = novoStatus;
-          atualizarEquipamento(equipamento);
-        })
-        .catch(function (error) {
-          console.error('Erro:', error);
-          alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
-        });
-
-      $(this).closest("tr").find("td:nth-child(4)").text(novoStatus);
+      var id = $(this).closest("tr").find("td:nth-child(1)").text();
+      console.log(id, novoStatus);
+      atualizarEquipamento(id, novoStatus);
     });
+
+    function atualizarEquipamento(idEquipamento, novoStatus) {
+      const user = JSON.parse(localStorage.userData || '{}');
+      const token = user.token || '';
+
+      fetch(apiURL + "/admin/equipamento/" + idEquipamento, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ statusDoacao: novoStatus })
+      })
+        .then(function(response) {
+          if (response.status != 200) {
+            throw new Error("Erro ao atualizar o equipamento");
+          }
+          location.reload();
+        })
+        .catch(function(error) {
+          console.error('Erro:', error);
+          alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
+        });
+    }
 
     function obterEquipamentoPorID(id) {
       const user = JSON.parse(localStorage.userData || '{}');
@@ -354,30 +380,6 @@
             alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
           });
       });
-    }
-
-
-    function atualizarEquipamento(equipamento) {
-      const user = JSON.parse(localStorage.userData || '{}');
-      const token = user.token || '';
-
-      fetch(apiURL + "/admin/equipamento/" + equipamento.id, {
-        method: 'PUT',
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(equipamento)
-      })
-        .then(function (response) {
-          if (response.status != 200) {
-            throw new Error("Erro ao atualizar o equipamento");
-          }
-        })
-        .catch(function (error) {
-          console.error('Erro:', error);
-          alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
-        });
     }
 
 
