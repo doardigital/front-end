@@ -200,7 +200,14 @@
                 alert("Ocorreu um erro ao buscar os equipamentos. Por favor, tente novamente.");
             }
         }
-
+        const statusDescricaoValor = {
+      P: 'Pendente',
+      A: 'Aprovado',
+      R: 'Reprovado',
+      E: 'Em análise',
+      F: 'Finalizado',
+      D: 'Aguardando Entrega',
+    };
         function exibirEquipamentos(equipamentos) {
     const tabela = document.getElementById('equipamentos-lista');
     equipamentos.forEach(function(equipamento) {
@@ -210,7 +217,7 @@
             <td>${equipamento.id}</td>
             <td>${equipamento.nome}</td>
             <td>${equipamento.modelo}</td>
-            <td>${equipamento.status}</td>
+             <td>${statusDescricaoValor[equipamento.statusDoacao]}</td>
             <td>$data</td>
             <td>$horario</td>
         `;
