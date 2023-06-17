@@ -139,10 +139,7 @@
                         <label for="fotos" class="form-label">Fotos:</label>
                         <input type="file" class="form-control" id="fotos" name="fotos[]" multiple accept="image/*">
                     </div>
-                    <div class="mb-3">
-                        <label for="videos" class="form-label">Vídeos:</label>
-                        <input type="file" class="form-control" id="videos" name="videos[]" multiple accept="video/*">
-                    </div>
+                    <input type="hidden" id="equipamento-id" name="equipamentoId">
                     <button id="button-cria-equipamento" type="button" class="btn btn-primary" onclick="criaEquipamento()">Enviar</button>
                 </form>
             </div>
@@ -176,19 +173,49 @@
             location.reload();
         });
 
-        async function criaEquipamento() {
+       async function criaEquipamento() {
             const previousSubmitHTML = $('#button-cria-equipamento').html();
             $('#button-cria-equipamento').html("<i class='fas fa-spinner fa-spin'></i> Criando...");
             await redirecionarAcompanharDoacoes();
             $('#button-cria-equipamento').html(previousSubmitHTML);
         };
+
+
+
+        
+        async function uploadImagensEquipamento(equipamentoId) {
+    const fotos = document.getElementById("fotos").files;
+
+    for (let i = 0; i < fotos.length; i++) {
+        const foto = fotos[i];
+        const formData = new FormData();
+        formData.append("foto", foto);
+
+        try {
+            const response = await fetch(apiURL + `/admin/imagemEquipamento/${equipamentoId}`, {
+                method: 'POST',
+                headers: {
+                    "Authorization": "Bearer " + token
+                },
+                body: formData
+            });
+
+            if (response.status !== 201) {
+                throw new Error("Erro ao enviar a imagem");
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert("Ocorreu um erro ao enviar as imagens. Por favor, tente novamente.");
+        }
+    }
+}
         
         async function redirecionarAcompanharDoacoes() {
             var nome = document.getElementById("nome").value;
             var modelo = document.getElementById("modelo").value;
             var tempoUso = document.getElementById("tempo_uso").value;
             var fotos = document.getElementById("fotos").files;
-            var videos = document.getElementById("videos").files;
+          
             const user = JSON.parse(localStorage.userData || '{}');
             const token = user.token || '';
     
@@ -200,7 +227,7 @@
                             "Content-Type": "application/json",
                             "Authorization": "Bearer " + token
                         },
-                        body: JSON.stringify({ nome, marca: modelo, modelo, tempoUso, fotos, videos })
+                        body: JSON.stringify({ nome, marca: modelo, modelo, tempoUso, fotos })
                     });
     
                     if (response.status == 201) {

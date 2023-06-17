@@ -110,12 +110,6 @@ body {
 
 /*tela quero doar*/
 
-.form-control {
-  background-color: transparent;
-  border: 1px solid white;
-  color: white;
-  border-radius: 20px;
-}
 
 .btn-primary {
   background-color:#8a5bcc;
