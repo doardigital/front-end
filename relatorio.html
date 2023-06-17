@@ -259,13 +259,9 @@
             </div>
           </td>
           <td class="imagem-equipamento">
-  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#imagemModal" data-equipamento-id="${equipamento.id}">Visualizar</button></td>
-          <td>
-            <input type="date" class="form-control">      
-          </td>
-          <td>
-            <input type="time" class="form-control">            
-          </td>        
+  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#imagemModal" data-equipamento-id="${equipamento.id}">Visualizar</button></td>         
+        <td>  <input id="data-entrega" type="date" class="form-control"> </td>
+<td><input id="horario-entrega" type="time" class="form-control"></td>
         `;
     });
 
@@ -305,40 +301,46 @@
   }
 
   // End Função para exibir a galeria de imagens ao clicar no botão "Visualizar"
-
-
   $(document).on("click", ".dropdown-menu a", function () {
     var novoStatus = $(this).attr('value');
     var equipamentoID = $(this).data("equipamento-id");
-
+    
     var id = $(this).closest("tr").find("td:nth-child(1)").text();
     console.log(id, novoStatus);
     atualizarEquipamento(id, novoStatus);
   });
 
   function atualizarEquipamento(idEquipamento, novoStatus) {
-    const user = JSON.parse(localStorage.userData || '{}');
-    const token = user.token || '';
+  const user = JSON.parse(localStorage.userData || '{}');
+  const token = user.token || '';
+  const dataEntrega = document.getElementById('data-entrega').value;
+  const horarioEntrega = document.getElementById('horario-entrega').value;
 
-    fetch(apiURL + "/admin/equipamento/" + idEquipamento, {
-      method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      },
-      body: JSON.stringify({ statusDoacao: novoStatus })
+  const body = {
+    statusDoacao: novoStatus,
+    dataEntrega: dataEntrega,
+    horarioEntrega: horarioEntrega
+  };
+
+  fetch(apiURL + "/admin/equipamento/" + idEquipamento, {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify(body)
+  })
+    .then(function (response) {
+      if (response.status != 200) {
+        throw new Error("Erro ao atualizar o equipamento");
+      }
+      location.reload();
     })
-      .then(function (response) {
-        if (response.status != 200) {
-          throw new Error("Erro ao atualizar o equipamento");
-        }
-        location.reload();
-      })
-      .catch(function (error) {
-        console.error('Erro:', error);
-        alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
-      });
-  }
+    .catch(function (error) {
+      console.error('Erro:', error);
+      alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
+    });
+}
 
   function obterEquipamentoPorID(id) {
     const user = JSON.parse(localStorage.userData || '{}');
