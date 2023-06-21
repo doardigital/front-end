@@ -135,110 +135,89 @@
             <th class="no-border-bottom" scope="col">Modelo</th>
             <th class="no-border-bottom" scope="col">Status Atual</th>
             <th class="no-border-bottom" scope="col">Ateração do Status</th>
-            <th class="no-border-bottom" scope="col">Foto</th>
+            <th class="no-border-bottom" scope="col">Foto/Vídeo</th>
             <th class="no-border-bottom" scope="col">Data de entrega</th>
             <th class="no-border-bottom" scope="col">Horário de entrega</th>
           </tr>
         </thead>
         <tbody id="equipamentos-lista">
           <!-- Aqui serão inseridas as linhas dos equipamentos -->
-
-
         </tbody>
       </table>
     </div>
   </section>
 
-  <!--Imagens de cada equipamento-->
+  <script src="script.js"></script>
+  <script src="variables.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    
+    const statusDescricaoValor = {
+      P: 'Pendente',
+      A: 'Aprovado',
+      R: 'Reprovado',
+      E: 'Em análise',
+      F: 'Finalizado',
+      D: 'Aguardando Entrega',
+    };
 
-  <div class="modal fade" id="imagemModal" tabindex="-1" aria-labelledby="imagemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imagemModalLabel">Galeria de Imagens</h5>
-          <a class="imagem-link" href="#" target="_blank">
-            <img src="" alt="" class="imagem-modal">
-          </a>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-
-        </div>
-      </div>
-    </div>
-
-
-
-</body>
-<script src="script.js"></script>
-<script src="variables.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-
-  const statusDescricaoValor = {
-    P: 'Pendente',
-    A: 'Aprovado',
-    R: 'Reprovado',
-    E: 'Em análise',
-    F: 'Finalizado',
-    D: 'Aguardando Entrega',
-  };
-
-  $(document).ready(function () {
-    user = JSON.parse(localStorage.userData || '{}');
-    console.log(user);
-    if (jQuery.isEmptyObject(user)) {
-      $('.menu-unauthenticated').show();
-      $('.menu-authenticated').hide();
-    } else {
-      $('.menu-unauthenticated').hide();
-      $('.menu-authenticated').show();
-
-      const actionContent = $('#profile-action a').html();
-      $('#profile-action a').html(actionContent.replace('[Nome]', user.nome));
-
-      // Chamar função para buscar e exibir a lista de equipamentos
-      buscarEquipamentos();
-    }
-  });
-
-  $('#logout-action').click(function () {
-    localStorage.clear();
-    location.reload();
-  });
-
-  async function buscarEquipamentos() {
-    const user = JSON.parse(localStorage.userData || '{}');
-    const token = user.token || '';
-
-    try {
-      const response = await fetch(apiURL + "/admin/equipamento", {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        }
-      });
-
-      if (response.status == 200) {
-        const equipamentos = await response.json();
-        exibirEquipamentos(equipamentos);
+    $(document).ready(function () {
+      user = JSON.parse(localStorage.userData || '{}');
+      console.log(user);
+      if (jQuery.isEmptyObject(user)) {
+        $('.menu-unauthenticated').show();
+        $('.menu-authenticated').hide();
       } else {
-        throw new Error("Erro ao buscar os equipamentos");
-      }
-    } catch (error) {
-      console.error('Erro:', error);
-      alert("Ocorreu um erro ao buscar os equipamentos. Por favor, tente novamente.");
-    }
-  }
+        $('.menu-unauthenticated').hide();
+        $('.menu-authenticated').show();
 
-  function exibirEquipamentos(equipamentos) {
-    const tabela = document.getElementById('equipamentos-lista');
-    equipamentos.forEach(function (equipamento) {
-      const row = tabela.insertRow();
-      row.className = "purple-row"; // Adicione esta linha
-      row.innerHTML = `
+        const actionContent = $('#profile-action a').html();
+        $('#profile-action a').html(actionContent.replace('[Nome]', user.nome));
+
+        // Chamar função para buscar e exibir a lista de equipamentos
+        buscarEquipamentos();
+      }
+    });
+
+    $('#logout-action').click(function () {
+      localStorage.clear();
+      location.reload();
+    });
+
+    async function buscarEquipamentos() {
+      const user = JSON.parse(localStorage.userData || '{}');
+      const token = user.token || '';
+
+      try {
+        const response = await fetch(apiURL + "/admin/equipamento", {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          }
+        });
+
+        if (response.status == 200) {
+          const equipamentos = await response.json();
+          exibirEquipamentos(equipamentos);
+        } else {
+          throw new Error("Erro ao buscar os equipamentos");
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert("Ocorreu um erro ao buscar os equipamentos. Por favor, tente novamente.");
+      }
+    }
+
+    function exibirEquipamentos(equipamentos) {
+      const tabela = document.getElementById('equipamentos-lista');
+      equipamentos.forEach(function (equipamento) {
+        const row = tabela.insertRow();
+        row.className = "purple-row"; // Adicione esta linha
+        row.innerHTML = `
           <td>${equipamento.id}</td>
           <td>${equipamento.nome}</td>
           <td>${equipamento.modelo}</td>
@@ -258,120 +237,86 @@
               </ul>
             </div>
           </td>
-          <td class="imagem-equipamento">
-  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#imagemModal" data-equipamento-id="${equipamento.id}">Visualizar</button></td>         
-        <td>  <input id="data-entrega" type="date" class="form-control"> </td>
-<td><input id="horario-entrega" type="time" class="form-control"></td>
+          <td>
+            <button type="button" class="btn btn-light">Visualizar</button>
+          </td>
+          <td>
+            <input type="date" class="form-control">
+          
+          </td>
+          <td>
+            <input type="time" class="form-control">
+            
+          </td>
         `;
-    });
-
-
-
-    // Função para exibir a galeria de imagens ao clicar no botão "Visualizar"
-    $(document).on("click", ".imagem-equipamento button", function () {
-      var equipamentoID = $(this).data("equipamento-id");
-      exibirGaleriaImagens(equipamentoID);
-    });
-
-    // Função para buscar e exibir as imagens do equipamento na galeria
-    async function exibirGaleriaImagens(equipamentoID) {
-      try {
-        const equipamento = await obterEquipamentoPorID(equipamentoID);
-        const imagens = equipamento.imagens;
-        const imagemModal = $('#imagemModal');
-
-        // Limpar galeria de imagens antes de exibir as novas imagens
-        imagemModal.find('.modal-body').empty();
-
-        // Adicionar as imagens na galeria
-        imagens.forEach(function (imagem) {
-          const imagemLink = $('<a>').attr('href', '/admin/imagemEquipamento/' + imagem).attr('target', '_blank');
-          const imagemElement = $('<img>').attr('src', '/admin/imagemEquipamento/' + imagem).attr('alt', '').addClass('imagem-modal');
-          imagemLink.append(imagemElement);
-          imagemModal.find('.modal-body').append(imagemLink);
-        });
-
-        // Abrir o modal de imagens
-        imagemModal.modal('show');
-      } catch (error) {
-        console.error('Erro:', error);
-        alert("Ocorreu um erro ao buscar as imagens do equipamento. Por favor, tente novamente.");
-      }
+      });
     }
-  }
 
-  // End Função para exibir a galeria de imagens ao clicar no botão "Visualizar"
-  $(document).on("click", ".dropdown-menu a", function () {
-    var novoStatus = $(this).attr('value');
-    var equipamentoID = $(this).data("equipamento-id");
-    
-    var id = $(this).closest("tr").find("td:nth-child(1)").text();
-    console.log(id, novoStatus);
-    atualizarEquipamento(id, novoStatus);
-  });
+    $(document).on("click", ".dropdown-menu a", function () {
+      var novoStatus = $(this).attr('value');
+      var equipamentoID = $(this).data("equipamento-id");
 
-  function atualizarEquipamento(idEquipamento, novoStatus) {
-  const user = JSON.parse(localStorage.userData || '{}');
-  const token = user.token || '';
-  const dataEntrega = document.getElementById('data-entrega').value;
-  const horarioEntrega = document.getElementById('horario-entrega').value;
-
-  const body = {
-    statusDoacao: novoStatus,
-    dataEntrega: dataEntrega,
-    horarioEntrega: horarioEntrega
-  };
-
-  fetch(apiURL + "/admin/equipamento/" + idEquipamento, {
-    method: 'PATCH',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
-    },
-    body: JSON.stringify(body)
-  })
-    .then(function (response) {
-      if (response.status != 200) {
-        throw new Error("Erro ao atualizar o equipamento");
-      }
-      location.reload();
-    })
-    .catch(function (error) {
-      console.error('Erro:', error);
-      alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
+      var id = $(this).closest("tr").find("td:nth-child(1)").text();
+      console.log(id, novoStatus);
+      atualizarEquipamento(id, novoStatus);
     });
-}
 
-  function obterEquipamentoPorID(id) {
-    const user = JSON.parse(localStorage.userData || '{}');
-    const token = user.token || '';
+    function atualizarEquipamento(idEquipamento, novoStatus) {
+      const user = JSON.parse(localStorage.userData || '{}');
+      const token = user.token || '';
 
-    return new Promise(function (resolve, reject) {
-      fetch(apiURL + "/admin/equipamento/" + id, {
-        method: 'GET',
+      fetch(apiURL + "/admin/equipamento/" + idEquipamento, {
+        method: 'PATCH',
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
-        }
+        },
+        body: JSON.stringify({ statusDoacao: novoStatus })
       })
-        .then(function (response) {
-          if (response.status == 200) {
-            return response.json();
-          } else {
-            throw new Error("Erro ao obter o equipamento. Status: " + response.status);
+        .then(function(response) {
+          if (response.status != 200) {
+            throw new Error("Erro ao atualizar o equipamento");
+          }
+          location.reload();
+        })
+        .catch(function(error) {
+          console.error('Erro:', error);
+          alert("Ocorreu um erro ao atualizar o equipamento. Por favor, tente novamente.");
+        });
+    }
+
+    function obterEquipamentoPorID(id) {
+      const user = JSON.parse(localStorage.userData || '{}');
+      const token = user.token || '';
+
+      return new Promise(function (resolve, reject) {
+        fetch(apiURL + "/admin/equipamento/" + id, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
           }
         })
-        .then(function (equipamento) {
-          resolve(equipamento);
-        })
-        .catch(function (error) {
-          console.error('Erro:', error);
-          alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
-        });
-    });
-  }
+          .then(function (response) {
+            if (response.status == 200) {
+              return response.json();
+            } else {
+              throw new Error("Erro ao obter o equipamento. Status: " + response.status);
+            }
+          })
+          .then(function (equipamento) {
+            resolve(equipamento);
+          })
+          .catch(function (error) {
+            console.error('Erro:', error);
+            alert("Ocorreu um erro ao obter o equipamento. Por favor, tente novamente.");
+          });
+      });
+    }
 
-</script>
+  </script>
+
+</body>
 
 <footer>
 
